@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      .mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        z-index: 100;
+      }
+      .pop-bottom {
+        position: fixed;
+        background-color: #fff;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0%;
+        max-height: 100%;
+        overflow-y: auto;
+        background-color: #fff;
+        transition: all .3s;
+        transform: translateY(50%);
+      }
+      .title {
+        text-align: center;
+      }
+    </style>
+</head>
+<body>
+    <div id="pop-bottom">底部弹出</div>
+    <div class="pop-bottom">
+      <div class="title">请选择所在地区</div>
+      <div class="choice-title">
+      </div>
+      <div class="content">
+        <ul>1</ul>
+        <ul>1</ul>
+        <ul>1</ul>
+        <ul>1</ul>
+        <ul>1</ul>
+      </div>
+    </div>
+    <div class="mask"></div>
+    <script>
+      var pop = document.getElementById('pop-bottom')
+      var mask = document.getElementsByClassName('mask')[0]
+      var popBottom = document.getElementsByClassName('pop-bottom')[0]
+      pop.addEventListener('click', function(e) {
+        mask.style.display = 'block'
+        popBottom.style.display = 'block'
+        popBottom.style.height = '100%'
+        popBottom.style.zIndex = 101
+      })
+      mask.addEventListener('click', function() {
+        this.style.display = ''
+        popBottom.style.display = ''
+        popBottom.style.height = '0%'
+      })
+    </script>
+</body>
+</html>

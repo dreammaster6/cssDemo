@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../element-ui/css/element-ui.css">
+    <style>
+        .box{
+          position: relative;
+          width: 500px;
+          height: 400px;
+          background-color: pink;
+          font-size: 12px;
+        }
+        .close-box{
+          position: absolute;
+          top: 10px;
+          right: 10px;
+        }
+        .close-box .close-btn{
+          border: none;
+          outline: 0;
+          padding: 0;
+          cursor: pointer;
+        }
+        .close-box .close-btn .close-icon-close {
+          color: #909399;
+        }
+        .close-box .close-btn .close-icon-close::before{
+          content: "\e6db";
+          font-family: element-icons!important;
+          font-style: normal;
+        }
+        .close-box .close-btn .close-icon-close:hover {
+          color: #409EFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        这是一个由content生成的关闭按钮
+        <div class="close-box">
+          <button class="close-btn">
+            <i class="close-icon-close"></i>
+          </button>
+        </div>
+    </div>
+</body>
+</html>
