@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../element-ui/css/element-ui.css">
+    <link rel="stylesheet" href="../index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../element-ui/js/element-ui.js"></script>
+    <style>
+        .stick-footer-two{
+        }
+        .stick-footer-two .wrrap{
+            /* 50px取决于footer的高度    */
+            min-height:  calc(100vh - 50px);
+        }
+        .stick-footer-two .wrrap .header{
+
+        }
+        .stick-footer-two .wrrap .content{
+        }
+        .stick-footer-two .footer{
+           height: 50px;
+           background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="stick-footer-two" id="app">
+      <div class="wrrap">
+        <div class="header"></div>
+        <div class="content">
+          <el-table :data="tableData" border size="mini" >
+            <el-table-column
+              prop="index"
+              label="序号"
+              width="item">
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
+      <div class="footer">
+        <div style="text-align: right;">
+            lala
+            <el-button type="primary">点击</el-button>
+        </div>
+      </div>
+    </div>
+    <script>
+        var vm = new Vue({
+          el: '#app',
+          data() {
+            return {
+              tableData: []  
+            }  
+          },
+          created() {
+            for(let i = 0; i < 20; i++) {
+              this.tableData.push({index: i})
+            }
+          }
+        })
+    </script>
+</body>
+</html>

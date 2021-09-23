@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      img{
+        width: 500px;
+        height: auto;
+      }
+    </style>
+</head>
+<body>
+    <svg width='20' height="20" id="mysvg">
+        <rect x="0" y="0" width="10" height="10" fill="blue" />
+    </svg>
+    <img src="test.svg" alt="">
+    <img src="bitMap.png" alt="">
+    <script>
+        var mySvg = document.getElementById('mysvg')
+        console.log(mySvg)
+        mySvg.addEventListener('click', function(e) {
+          console.log(e)
+        })
+    </script>
+</body>
+</html>
