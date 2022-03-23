@@ -1,0 +1,59 @@
+.sl-color-svpannel {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  background: #010203;
+}
+
+.sl-color-svpannel_white {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: -webkit-gradient(linear, left top, right top, from(#fff), to(rgba(255, 255, 255, 0)));
+  background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0));
+}
+
+.sl-color-svpannel_black {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: -webkit-gradient(linear, left bottom, left top, from(#000), to(transparent));
+  background: linear-gradient(0deg, #000, transparent);
+}
+
+.sl-color-hue {
+  position: relative;
+  margin-top: 10px;
+  width: 400px;
+  height: 15px;
+}
+
+.sl-color-hue_bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: -webkit-gradient(linear, left top, right top, color-stop(0, red), color-stop(17%, #ff0), color-stop(33%, #0f0), color-stop(50%, #0ff), color-stop(67%, #00f), color-stop(83%, #f0f), to(red));
+  background: linear-gradient(to right, red 0, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, red);
+}
+
+.sl-color-hue_thumb {
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  border-radius: 1px;
+  border: 1px solid #f0f0f0;
+  background: #fff;
+  -webkit-box-shadow: 0 0 2px black;
+          box-shadow: 0 0 2px black;
+  z-index: 1;
+}
+/*# sourceMappingURL=new.css.map */

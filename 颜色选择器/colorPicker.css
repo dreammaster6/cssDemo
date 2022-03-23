@@ -1,0 +1,91 @@
+body {
+    margin: 0;
+}
+.color-picker-box {
+    display: inline-block;
+    min-width: 320px;
+    border: 1px solid #ebeeff;
+    padding: 10px;
+    border-radius: 5px;
+    background: #fff;
+}
+.pannel {
+    width: 280px;
+    height: 180px;
+    position: relative;
+    border: 1px solid #fff;
+    background: red;
+    overflow: hidden;
+}
+.pannel > .white-pannel,  .black-pannel{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+.white-pannel {
+    background: linear-gradient(90deg, #fff, transparent);
+}
+.black-pannel {
+    background: linear-gradient(0deg, rgba(0,0,0,1), transparent);
+}
+.pannel-cursor {
+   position: absolute;
+   left: 80%;
+   top: 10%;
+   cursor: default;
+   width:4px;
+   height: 4px;
+   border-radius: 50%;
+   box-shadow: rgb(255 255 255) 0px 0px 0px 1.5px, rgb(0 0 0 / 30%) 0px 0px 1px 1px inset, rgb(0 0 0 / 40%) 0px 0px 1px 2px;
+   transform: translate(-2px, -2px);
+}
+.color-hue-box {
+    position: relative;
+    width: 280px;
+    height: 12px;
+}
+.color-hue-box > .color-hue-bar {
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right,#f00 0%,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,#f00 100%);
+}
+.color-hue-box > .color-hue-thumb {
+    position: absolute;
+    left: 98%;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 1px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 0 2px #0009;
+}
+
+.color-Alpha-box {
+    position: relative;
+    width: 280px;
+    height: 12px;
+}
+.color-Alpha-box > .color-Alpha-bar {
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right,rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
+}
+.color-Alpha-box > .color-Alpha-thumb {
+    position: absolute;
+    left: 98%;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 1px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 0 2px #0009;
+}
+.testDom{
+    margin-top: 10px;
+}

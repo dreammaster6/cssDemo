@@ -1,0 +1,52 @@
+.sl-color-svpannel {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    background: rgb(1, 2, 3);
+    &_white {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(
+            90deg,#fff,hsla(0,0%,100%,0));
+    }
+    &_black {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(
+            0deg,#000,transparent);
+    }
+}
+.sl-color-hue {
+    position: relative;
+    margin-top: 10px;
+    width: 400px;
+    height: 15px;
+    &_bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+to right,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red);
+    }
+    &_thumb {
+        width: 4px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+        border-radius: 1px;
+        border: 1px solid #f0f0f0;
+        background: #fff;
+        box-shadow: 0 0 2px rgb(0,0,0);
+        z-index: 1;
+    }
+}

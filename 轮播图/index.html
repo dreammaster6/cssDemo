@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div class="swiper-box">
+        <img src="./left_arrow.png" alt="" class="arrow">
+        <div class="swiper-content-box">
+            <div class="swiper-content">
+                <div class="content-part">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名7 <br> 联系方式
+                        </span>
+                    </div>
+                </div>
+                <div class="content-part">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名1 <br> 联系方式
+                        </span>
+                    </div>
+                </div>
+                <div class="content-part">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名2 <br> 联系方式
+                        </span>
+                    </div>
+                </div>
+                <div class="content-part is-middle-bg">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名3 <br> 联系方式
+                        </span>
+                    </div>
+                </div>
+                <div class="content-part">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名4 <br> 联系方式
+                        </span>
+                    </div>
+                </div>
+                <div class="content-part">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名5 <br> 联系方式
+                        </span>
+                    </div>
+                </div>
+                <div class="content-part">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名6 <br> 联系方式
+                        </span>
+                    </div>
+                </div>
+                <div class="content-part">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名7 <br> 联系方式1
+                        </span>
+                    </div>
+                </div>
+                <div class="content-part">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名1 <br> 联系方式
+                        </span>
+                    </div>
+                </div>
+                <div class="content-part">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名2 <br> 联系方式
+                        </span>
+                    </div>
+                </div>
+                <div class="content-part">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名3 <br> 联系方式
+                        </span>
+                    </div>
+                </div>
+                <div class="content-part">
+                    <img src="./touxiang.png" alt="">
+                    <div class="people-info">
+                        <span>
+                            姓名4 <br> 联系方式
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="./right_arrow.png" alt="" class="arrow">
+    </div>
+</body>
+<script>
+    let leftArrow = document.body.getElementsByClassName('arrow')[0]
+    let rightArrow = document.body.getElementsByClassName('arrow')[1]
+    let swiperBox = document.getElementsByClassName('swiper-content')[0]
+    let content_part_one = document.getElementsByClassName('content-part')
+    let index = 1
+    leftArrow.addEventListener('click', function () {
+        if (index < 7) {
+            index++
+            swiperBox.style = `transition-duration: .3s; transform: translate3d(-${index * 81}px, 0px, 0px);`
+        } else {
+            index = 1
+            swiperBox.style = `transition-duration: .0s; transform: translate3d(-${0 * 81}px, 0px, 0px);`
+            setTimeout(() => {
+                swiperBox.style = `transition-duration: .3s; transform: translate3d(-${index * 81}px, 0px, 0px);`
+            }, 0)
+        }
+        for (let i = 0; i < content_part_one.length; i++) {
+            content_part_one[i].className = 'content-part'
+        }
+        content_part_one[index + 2].className = 'content-part is-middle-bg'
+    })
+    rightArrow.addEventListener('click', function () {
+        if (index > 0) {
+            index--
+            swiperBox.style = `transition-duration: .3s; transform: translate3d(-${index * 81}px, 0px, 0px);`
+        } else {
+            index = 6
+            swiperBox.style = `transition-duration: .0s; transform: translate3d(-${7 * 81}px, 0px, 0px);`
+            setTimeout(() => {
+                swiperBox.style = `transition-duration: .3s; transform: translate3d(-${index * 81}px, 0px, 0px);`
+            }, 0)
+        }
+        for (let i = 0; i < content_part_one.length; i++) {
+            content_part_one[i].className = 'content-part'
+        }
+        content_part_one[index + 2].className = 'content-part is-middle-bg'
+    })
+</script>
+
+</html>

@@ -1,23 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>柱状图</title>
     <style>
-        html, body{
+        html,
+        body {
             padding: 0;
             margin: 0;
         }
+
+        canvas {
+            border: 1px solid grey;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
+
 <body>
-    <main>
-        <canvas></canvas>
-    </main>
+    <canvas id="canvas" width="232" height="253"></canvas>
     <script>
-        var verticalData = [0, 100, 200, 300, 400, 500]
+        // 画布起始点坐标
+        let point = {
+            x: 30,
+            y: 211
+        }
+        // 间隔
+        let gaps = 5
+        // 柱状图实际展示数据
+        let data = [9, 14, 3, 20]
+        // X轴刻度值
+        let xais_data = ['1号客梯', '2号客梯', '3号客梯', '4号客梯']
+        /*
+          获取Y轴刻度值
+          data: 实际渲染数据
+          gaps: Y轴间隔值
+          unit: 单位
+        */
+        function geyYaisData(data, gaps, unit) {
+            // 根据柱状图实际展示数据获取Y轴刻度值
+            // 先获取实际数据里最大值
+            let result = []
+            let maxValue = data[0]
+            for (let i = 1, length = data.length; i < length; i++) {
+                maxValue = Math.max(maxValue, data[i])
+            }
+            for (let i = 0; i <= gaps; i++) {
+                result.push(Math.floor(maxValue / gaps) * i + unit)
+            }
+            return result
+        }
+        let yais_data = geyYaisData(data, 5, '人')
+        /*
+          画X轴
+          ctx: canvas对象
+          point： 起始点
+          xWidth： X轴宽度
+          xColor: X轴颜色
+        */
+        function drawXaxis(ctx, point, xWidth, xColor) {
+            ctx.strokeStyle = xColor || ''
+            ctx.beginPath()
+            ctx.moveTo(point.x, point.y)
+            ctx.lineTo(point.x + Number(xWidth), point.y)
+            ctx.closePath()
+            ctx.stroke()
+        }
+        /*
+          画 Y轴
+          ctx: canvas对象
+          point： 起始点
+          yHeight： Y轴高度
+          yColor: y轴颜色
+        */
+        function drawYaxis(ctx, point, yHeight, yColor) {
+            ctx.strokeStyle = yColor || ''
+            ctx.beginPath()
+            ctx.moveTo(point.x, point.y)
+            ctx.lineTo(point.x, point.y - Number(yHeight))
+            ctx.closePath()
+            ctx.stroke()
+        }
+        /*
+          获取实际数据所在X轴中心点坐标
+          point: X轴起始点坐标
+          data: 渲染柱状体实际数据
+          xWidth: X轴宽度
+        */
+        function getXaxisDataPoint(point, data, xWidth) {
+            let result = []
+            // 存放的是X轴被 N(N取决于柱状体的实际数据) 等份之后的数据
+            let tempResult = [point.x]
+            let n = data.length
+            let preWidth = Math.floor(xWidth / n)
+            for (let i = 1; i < n; i++) {
+                tempResult.push(tempResult[i - 1] + preWidth)
+            }
+            tempResult.push(point.x + xWidth)
+            for (let i = 1, length = tempResult.length; i < length; i++) {
+                result.push({
+                    x: Math.floor((tempResult[i - 1] + tempResult[i]) / 2),
+                    y: point.y
+                })
+            }
+            return result
+        }
+        /*
+            获取实际数据所在Y轴中心点坐标
+            point：坐标轴起始点
+            data: 渲染柱状体实际数据
+            yHeight: y轴高度
+            gaps: y轴刻度个数
+        */
+        function getYaxisDataPoint(point, data, yHeight, gaps) {
+            // 将高度分为 gaps 等份
+            let preHeight = Math.floor(yHeight / gaps)
+            let tempResult = [point]
+            for (let i = 1; i < gaps; i++) {
+                tempResult.push({
+                    x: point.x,
+                    y: tempResult[i - 1].y - preHeight
+                })
+            }
+            return tempResult
+        }
+        /*
+            获取Y
+        */
+        /*
+            画X轴文本
+            ctx: canvas对象
+            pointArray: X轴的坐标点集合
+            axisData: 坐标轴值
+        */
+        function drawXaxisText(ctx, pointArray, axisData) {
+            pointArray.forEach((item, index) => {
+                ctx.textAlign = 'center'
+                ctx.textBaseline = 'top'
+                ctx.font = '11px Arial'
+                ctx.fillText(axisData[index], item.x, item.y + 5);
+            })
+        }
+        /*
+            画Y轴文本和刻度线
+            ctx: canvas对象
+            point: 坐标轴起始点坐标
+            pointArray: Y轴的坐标点集合
+            axisData: 坐标轴值
+        */
+        function drawYaxisText(ctx, xWidth, pointArray, axisData) {
+            // 画刻度线
+            pointArray.forEach((item, index) => {
+                ctx.strokeStyle = 'rgba(104, 168, 204, 0.1)'
+                ctx.beginPath()
+                ctx.moveTo(item.x, item.y)
+                ctx.lineTo(item.x + xWidth, item.y)
+                ctx.closePath()
+                ctx.stroke()
+            })
+            // 画文本
+            pointArray.forEach((item, index) => {
+                ctx.fillStyle = 'rgba(138, 158, 207, 1)'
+                ctx.textAlign = 'right'
+                ctx.textBaseline = 'bottom'
+                ctx.font = '10px Arial'
+                ctx.fillText(axisData[index], item.x - 3, item.y);
+            })
+        }
+        /*
+          将柱状图渲染数据转换为具体坐标
+          data: 数据源
+          XPointArray: X轴每一等份中心点数组
+          yHeight: y轴长度
+          gaps: 间隔
+          chartWidth： 自定义柱状图宽度  
+        */
+        function dataToCoordinate(data, XPointArray, yHeight, gaps) {
+            let result = []
+            let maxValue = data[0]
+            for (let i = 1, length = data.length; i < length; i++) {
+                maxValue = Math.max(maxValue, data[i])
+            }
+            let preHeight = Math.floor(yHeight / (gaps + 1))
+            let gapValue = Math.floor(maxValue / gaps)
+            data.forEach((item, index) => {
+                result.push({
+                    x: XPointArray[index].x,
+                    y: XPointArray[index].y - Math.floor(item * preHeight / gapValue)
+                })
+            })
+            return result
+        }
+        /*
+            画柱状图
+            ctx: canvas对象
+            pointArray1: 柱状图起点坐标
+            pointArray2： 柱状图顶点坐标
+            width: 柱状图宽度
+            data: 柱状图数据集
+        */
+        function drawHistogram(ctx, pointArray1, pointArray2, width, data) {
+            pointArray1.forEach((item, index) => {
+                var gradient = ctx.createLinearGradient(pointArray2[index].x - Math.floor(width / 2), pointArray2[index].y + Math.floor(width / 2), item.x + Math.floor(width / 2), item.y);
+                gradient.addColorStop(0, 'rgba(47, 189, 255, 1)');
+                gradient.addColorStop(1, 'rgba(76, 164, 255, 0)');
+                ctx.fillStyle = gradient
+                ctx.beginPath()
+                ctx.moveTo(item.x - Math.floor(width / 2), item.y)
+                ctx.lineTo(pointArray2[index].x - Math.floor(width / 2), pointArray2[index].y + Math.floor(width / 2))
+                ctx.arc(pointArray2[index].x, pointArray2[index].y + Math.floor(width / 2), Math.floor(width / 2), 1 * Math.PI, 2 * Math.PI, false)
+                ctx.lineTo(pointArray2[index].x + Math.floor(width / 2), pointArray2[index].y + Math.floor(width / 2))
+                ctx.lineTo(item.x + Math.floor(width / 2), item.y)
+                ctx.closePath()
+                ctx.fill()
+                // 绘制文本
+                ctx.font = "11px Arial";
+                ctx.textAlign = 'center';
+                ctx.fillText(data[index], item.x, pointArray2[index].y);
+            })
+        }
+        function draw() {
+            var canvas = document.getElementById('canvas')
+            console.log(canvas)
+            if (canvas.getContext) {
+                let ctx = canvas.getContext('2d')
+                // 创建线性渐变
+                let gradient = ctx.createLinearGradient(20, 50, 200, 50)
+                gradient.addColorStop(0, 'rgba(47, 189, 255, 1)')
+                // gradient.addColorStop(0.5, '#4CA4FF ')
+                gradient.addColorStop(1, 'rgba(76, 164, 255, 0)')
+                drawXaxis(ctx, point, 207, 'rgba(104, 168, 204, 1)')
+                drawYaxis(ctx, point, 187, 'rgba(104, 168, 204, 1)')
+                // getXaxisDataPoint(point, data, 207)
+                // getYaxisDataPoint(point, data, 187, 5)
+                drawXaxisText(ctx, getXaxisDataPoint(point, data, 207), xais_data)
+                drawYaxisText(ctx, 207, getYaxisDataPoint(point, data, 187, gaps + 1), yais_data)
+                // dataToCoordinate(data, getXaxisDataPoint(point, data, 207), 187, 5)
+                drawHistogram(ctx, getXaxisDataPoint(point, data, 207), dataToCoordinate(data, getXaxisDataPoint(point, data, 207), 187, 5), 10, data)
+            }
+        }
+        draw()
     </script>
 </body>
+
 </html>

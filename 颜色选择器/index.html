@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./colorPicker.css">
+</head>
+
+<body>
+    <!-- <div>颜色选择器</div> -->
+    <div class="color-picker-box">
+        <div class="pannel">
+            <div class="white-pannel"></div>
+            <div class="black-pannel"></div>
+            <div class="pannel-cursor"></div>
+        </div>
+        <div class="color-hue-box">
+            <div class="color-hue-bar"></div>
+            <div class="color-hue-thumb"></div>
+        </div>
+        <div class="color-Alpha-box">
+            <div class="color-Alpha-bar"></div>
+            <div class="color-Alpha-thumb"></div>
+        </div>
+        <div class="testDom">
+
+        </div>
+    </div>
+    <script>
+        let H = 360, S = 0, V = 0, A = 1
+        let pannel = document.getElementsByClassName('pannel')[0]
+        let cursorDom = document.getElementsByClassName('pannel-cursor')[0]
+        let bar = document.getElementsByClassName('color-hue-bar')[0]
+        let thumb = document.getElementsByClassName('color-hue-thumb')[0]
+        let aBar = document.getElementsByClassName('color-Alpha-bar')[0]
+        let aThumb = document.getElementsByClassName('color-Alpha-thumb')[0]
+        let testDom = document.getElementsByClassName('testDom')[0]
+        let com = window.getComputedStyle ? window.getComputedStyle(cursorDom, null) : cursorDom.currentStyle
+        // 面板点击事件
+        pannel.addEventListener('click', function (event) {
+            // 获取点击的坐标点数据(相对于pannel的坐标点)
+            let x = event.clientX - this.getBoundingClientRect().left
+            let y = event.clientY - this.getBoundingClientRect().top
+            // 将浮标元素定位于点击点
+            if (x >= 0 && y >= 0) {
+                cursorDom.style.left = x - cursorDom.getBoundingClientRect().width / 2 + 'px'
+                cursorDom.style.top = y - cursorDom.getBoundingClientRect().height / 2 + 'px'
+            }
+            ({saturation:S, Bright:V} = getSVValue(x, y, this.getBoundingClientRect().width - 2, this.getBoundingClientRect().height - 2))
+            let color = hsvToRgb(H,S,V)
+            aBar.style.background = `linear-gradient(to right,rgba(${color.r}, ${color.g}, ${color.b}, 0), rgba(${color.r}, ${color.g}, ${color.b}, 1))`
+            setRGBAValue(color.r, color.g, color.b, A)
+        }, true)
+        // 色相块点击事件
+        bar.addEventListener('click', function (event) {
+            // 获取点击的坐标点数据(相对于bar)
+            let x = event.clientX - this.getBoundingClientRect().left
+            let y = event.clientY - this.getBoundingClientRect().top
+            // 将thumb元素定位于点击点
+            thumb.style.left = x - thumb.getBoundingClientRect().width / 2 + 'px'
+            H = getHValue(x, this.getBoundingClientRect().width)
+            let color = hsvToRgb(H,S,V)
+            pannel.style.backgroundColor = `hsl(${H}, 100%, 50%)`
+            aBar.style.background = `linear-gradient(to right,rgba(${color.r}, ${color.g}, ${color.b}, 0), rgba(${color.r}, ${color.g}, ${color.b}, 1))`
+            setRGBAValue(color.r, color.g, color.b, A)
+        })
+        aBar.addEventListener('click', function(event) {
+          // 获取点击坐标点数据(相对于bar)  
+          let x = event.clientX - this.getBoundingClientRect().left
+          aThumb.style.left = x - thumb.getBoundingClientRect().width / 2 + 'px'
+          A = getAValue(x, this.getBoundingClientRect().width)
+          let color = hsvToRgb(H,S,V)
+          setRGBAValue(color.r, color.g, color.b, A)
+        })
+        // 游标点拖拽
+        cursorDom.addEventListener('mousedown', function(event) {
+            console.log(event)
+            pannel.addEventListener('mousemove', function(events) {
+                cursorDom.style.left = events.clientX + 'px'
+                cursorDom.style.top = events.clientY + 'px'
+            })
+        })
+        // cursorDom.addEventListener('mousemove', function(event) {
+        //     console.log(event)
+        // })
+        cursorDom.addEventListener('mouseup', function(event) {
+            pannel.removeEventListener('mousemove')
+        })
+        // 获取S V 值
+        function getSVValue(x, y, width, height) {
+            let saturation = Math.round(x / width * 100) / 100
+            let Bright = Math.round((1 - y / height) * 100) / 100
+            return {
+                saturation,
+                Bright
+            }
+        }
+        // 获取H值
+        function getHValue(x, width) {
+            let hue = Math.round((x / width) * 360 * 100) / 100
+            return hue
+        }
+        // 获取A值
+        function getAValue(x, width) {
+            let alpha = Math.round((x / width) * 100) / 100
+            return alpha
+        }
+        // 获取RGBA值
+        function setRGBAValue(r,g,b,a) {
+            testDom.style.background = `rgba(${r},${g},${b},${a})`
+            testDom.innerHTML = `rgba(${r},${g},${b},${a})`
+        }
+        function hsvToRgb(h,s,v) {
+            console.log('H:', h)
+            console.log('S:', s)
+            console.log('V:', v)
+            let r = 0, g = 0, b = 0
+            if (s===0) {
+               r = v * 255
+               g = v * 255
+               b = v * 255 
+            } else {
+                let var_h = h * 6 / 360
+                if (var_h === 6 ) {
+                 var_h = 0
+                }
+                let var_i = ~~(var_h)
+                let var_1 = v * (1 - s)
+                let var_2 = v * (1 -s * (var_h - var_i))
+                let var_3 = V * ( 1 - s * ( 1 - ( var_h - var_i ) ) )
+                switch(var_i) {
+                  case  0 : 
+                  r = v 
+                  g = var_3
+                  b = var_1
+                  break;
+                  case 1 :
+                  r = var_2 
+                  g = v
+                  b = var_1
+                  break;
+                  case 2 : 
+                  r = var_1  
+                  g = v
+                  b = var_3
+                  break;
+                  case 3 : 
+                  r = var_1  
+                  g = var_2 
+                  b = v
+                  break;
+                  case 4 : 
+                  r = var_3   
+                  g = var_1  
+                  b = v
+                  break;
+                  default :
+                  r = v   
+                  g = var_1  
+                  b = var_2
+                }
+                r = r * 255
+                g = g * 255
+                b = b * 255
+            }
+            return {
+                r: Math.round(r),
+                g: Math.round(g),
+                b: Math.round(b)
+            }
+        }
+    </script>
+</body>
+
+</html>

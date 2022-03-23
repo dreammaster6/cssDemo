@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            display: flex;
+            height: 200px;
+            width: 600px;
+        }
+        .box-other{
+            box-sizing: border-box;
+            display: flex;
+            height: 200px;
+            width: 600px;
+            box-sizing: border-box;
+            padding: 0 20px;
+            border: 10px solid purple;
+        }
+        .box1 {
+            width: 400px;
+            flex-shrink: 2;
+            background-color: #c5c5c5;
+        }
+
+        .box2 {
+            width: 500px;
+            flex-shrink: 3;
+            background-color: greenyellow;
+        }
+        .box3 {
+            width: 600px;
+            flex-shrink: 4;
+            background-color: pink;
+        }
+        .box4 {
+            width: 600px;
+            flex-shrink: 4;
+            padding: 0 20px;
+            border: 10px solid gold;
+        }
+        .box5{
+            box-sizing: border-box;
+            width: 600px;
+            flex-shrink: 4;
+            padding: 0 20px;
+            border: 10px solid skyblue;
+        }
+        .box6{
+            width: 500px;
+            flex-shrink: 3;
+            background-color: greenyellow; 
+            padding: 0 20px;
+            border: 10px solid gold;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        目标元素收缩之后的宽度 = 目标元素宽度width值 - [ 目标元素实际宽度值 * 目标元素的shrink / （所有目标元素实际宽度与shrink权重和） ] * （所有目标元素实际宽度值 + border-left + border-right +
+        padding-left + padding-right - 父元素的实际宽度）
+    </div>
+    <div>
+        宽度width值： 即为元素的 width 属性值。
+        <br>
+        实际宽度值： content-box 中 为 width属性值。 border-box中 为 width - ( border-right + padding-left + padding-right)
+        <br>
+        目标元素收缩之后的宽度: 即为元素的实际宽度值。分border-box,content-box两种情况。 border-box 为 width属性值 - border - padding。 content-box 为width属性值。
+    </div>
+    <div>
+        ---------------------------------------------------------------------<br>
+        情形1 <br>
+        所有盒子皆为 content-box盒子 <br>
+        父元素宽度：600px <br>
+        子元素1宽度：400px shrink: 2 <br>
+        子元素2宽度：500px shrink: 3 <br>
+        子元素3宽度：600px shrink: 4 <br>
+    </div>
+    <div class="box">
+        <div class="box1">子元素1</div>
+        <div class="box2">子元素2</div>
+        <div class="box3">子元素3</div>
+    </div>
+    <div>
+        目标子元素1收缩之后的宽度 = 400 - 400 * 2 / (400 * 2 + 500 * 3 + 600 * 4)  * （400 + 500 + 500 - 600） = 246.808511
+        <br>
+        目标子元素2收缩之后的宽度 = 500 - 500 * 3 / (400 * 2 + 500 * 3 + 600 * 4)  * （400 + 500 + 500 - 600） = 212.765957
+        <br>
+        目标子元素3收缩之后的宽度 = 600 - 600 * 4 / (400 * 2 + 500 * 3 + 600 * 4)  * （400 + 500 + 500 - 600） = 140.425532
+    </div>
+    <div>
+        ---------------------------------------------------------------------<br>
+        情形2 <br>
+        所有盒子皆为 content-box盒子 <br>
+        父元素宽度：600px <br>
+        子元素1宽度：400px shrink: 2 <br>
+        子元素2宽度：500px shrink: 3 <br>
+        子元素4宽度：600px shrink: 4; padding: 0 20px; border: 10px <br>
+    </div>
+    <div class="box">
+        <div class="box1">子元素1</div>
+        <div class="box2">子元素2</div>
+        <div class="box4">子元素4</div>
+    </div>
+    <div>
+        目标子元素1收缩之后的宽度 = 400 - 400 * 2 / (400 * 2 + 500 * 3 + 600 * 4)  * （400 + 500 + 600 + 20 + 20 + 10 + 10 - 600） = 236.595745
+        <br>
+        目标子元素2收缩之后的宽度 = 500 - 500 * 3 / (400 * 2 + 500 * 3 + 600 * 4)  * （400 + 500 + 600 + 20 + 20 + 10 + 10  - 600） = 193.617021
+        <br>
+        目标子元素4收缩之后的宽度 = 600 - 600 * 4 / (400 * 2 + 500 * 3 + 600 * 4)  * （400 + 500 + 600 + 20 + 20 + 10 + 10  - 600） = 109.787234
+        <br>
+    </div>
+    <div>
+        ---------------------------------------------------------------------<br>
+        情形3 <br>
+        父元素为content-box 子元素为border-box 和 content-box<br>
+        父元素宽度：600px <br>
+        子元素1宽度：400px shrink: 2 <br>
+        子元素2宽度：500px shrink: 3 <br>
+        子元素5宽度：600px shrink: 4; padding: 0 20px; border: 10px ; box-sizing: border-box;<br>
+    </div>
+    <div class="box">
+        <div class="box1">子元素1</div>
+        <div class="box2">子元素2</div>
+        <div class="box5">子元素5</div>
+    </div>
+    <div>
+        目标子元素1收缩之后的宽度 = 400 - 400 * 2 / (400 * 2 + 500 * 3 + (600 - 20 * 2 - 10 *2 ) * 4)  * （400 + 500 + 600 - 600） = 238.565022
+        <br>
+        目标子元素2收缩之后的宽度 = 500 - 500 * 3 / (400 * 2 + 500 * 3 + (600 - 20 * 2 - 10 *2 ) * 4)  * （400 + 500 + 600  - 600） = 197.309417
+        <br>
+        目标子元素4收缩之后的宽度 = 600 - (600 - 20 * 2 - 10 *2 ) * 4 / (400 * 2 + 500 * 3 + (600 - 20 * 2 - 10 *2 ) * 4)  * （400 + 500 + 600  - 600） = 164.125561
+        <br>
+    </div>
+    <div>
+        ---------------------------------------------------------------------<br>
+        情形4 <br>
+        父元素为content-box 子元素为border-box 和 content-box<br>
+        父元素宽度：600px <br>
+        子元素1宽度：400px shrink: 2 <br>
+        子元素5宽度：600px shrink: 4; padding: 0 20px; border: 10px ; box-sizing: border-box;<br>
+        子元素6宽度：500px shrink: 3; padding: 0 20px; border: 10px ; box-sizing: content-box;<br>
+    </div>
+    <div class="box">
+        <div class="box1">子元素1</div>
+        <div class="box5">子元素5</div>
+        <div class="box6">子元素6</div>
+        <div></div>
+    </div>
+    <div>
+        目标子元素1收缩之后的宽度 = 400 - 400 * 2 / (400 * 2  + (600 - 20 * 2 - 10 *2 ) * 4 + 500 * 3)  * （400 + 500 + 20 * 2 + 10 * 2 + 600 - 600） = 227.802691
+        <br>
+        目标子元素5收缩之后的宽度 = 600 - (600 - 20 * 2 - 10 *2 ) * 4 / (400 * 2  + (600 - 20 * 2 - 10 *2 ) * 4 + 500 * 3)  * （400 + 500 + 20 * 2 + 10 * 2 + 600  - 600） = 135.067265
+        <br>
+        目标子元素6收缩之后的宽度 = 500 - 500 * 3 / (400 * 2  + (600 - 20 * 2 - 10 *2 ) * 4 + 500 * 3)  * （400 + 500 + 20 * 2 + 10 * 2 + 600  - 600） = 177.130045
+        <br>
+    </div>
+    <div>
+        ---------------------------------------------------------------------<br>
+        情形5 <br>
+        父元素为border-box 子元素为border-box 和 content-box<br>
+        父元素宽度：600px  padding: 0 20px; border: 10px; box-sizing: border-box;<br>
+        子元素1宽度：400px shrink: 2 <br>
+        子元素5宽度：600px shrink: 4; padding: 0 20px; border: 10px ; box-sizing: border-box;<br>
+        子元素6宽度：500px shrink: 3; padding: 0 20px; border: 10px ; box-sizing: content-box;<br>
+    </div>
+    <div class="box-other">
+        <div class="box1">子元素1</div>
+        <div class="box5">子元素5</div>
+        <div class="box6">子元素6</div>
+        <div></div>
+    </div>
+    <div>
+        目标子元素1收缩之后的宽度 = 400 - 400 * 2 / (400 * 2  + (600 - 20 * 2 - 10 *2 ) * 4 + 500 * 3)  * （400 + 500 + 20 * 2 + 10 * 2 + 600 - (600 - 20 * 2 - 10 * 2)） = 217.040359
+        <br>
+        目标子元素5收缩之后的宽度 = 600 - (600 - 20 * 2 - 10 *2 ) * 4 / (400 * 2  + (600 - 20 * 2 - 10 *2 ) * 4 + 500 * 3)  * （400 + 500 + 20 * 2 + 10 * 2 + 600  - (600 - 20 * 2 - 10 * 2)） = 106.008969
+        <br>
+        目标子元素6收缩之后的宽度 = 500 - 500 * 3 / (400 * 2  + (600 - 20 * 2 - 10 *2 ) * 4 + 500 * 3)  * （400 + 500 + 20 * 2 + 10 * 2 + 600  - (600 - 20 * 2 - 10 * 2)） = 156.950673
+        <br>
+    </div>
+    <script>
+    </script>
+</body>
+
+</html>

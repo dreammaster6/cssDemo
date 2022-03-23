@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            display: flex;
+            width: 700px;
+            height: 200px;
+        }
+        .box-other{
+            box-sizing: border-box;
+            display: flex;
+            width: 800px;
+            height: 200px;
+            padding: 0 20px;
+            border: 10px solid orange;
+        }
+        .box1 {
+            flex-grow: 2;
+            width: 200px;
+            background-color: hotpink;
+        }
+        .box2{
+            flex-grow: 3;
+            width: 300px;
+            background-color: lavender;
+        }
+        .box3{
+            flex-grow: 4;
+            width: 100px;
+            background-color: aqua; 
+        }
+        .box4{
+            box-sizing: border-box;
+            flex-grow: 3;
+            width: 300px;
+            background-color: lavender;
+            padding: 0 20px;
+            border: 10px solid greenyellow;
+        }
+        .box5 {
+            flex-grow: 2;
+            width: 200px;
+            background-color: hotpink;
+            padding: 0 10px;
+            border: 5px solid gold;
+        }
+    </style>
+</head>
+<body>
+    目标元素拉伸之后的宽度 = 目标元素宽度width值 + （父元素实际宽度值 - (所有子元素实际宽度 + padding + border之和)） * 目标元素flex-grow / 所有子元素的flex-grow之和
+    <div>
+        ---------------------------------------------------------------------<br>
+        情形1 <br>
+        所有盒子皆为 content-box盒子 <br>
+        父元素宽度：700px <br>
+        子元素1宽度：200px grow: 2 <br>
+        子元素2宽度：300px grow: 3 <br>
+        子元素3宽度：100px grow: 4 <br>
+    </div>
+    <div class="box">
+        <div class="box1">子元素1</div>
+        <div class="box2">子元素2</div>
+        <div class="box3">子元素3</div>
+    </div>
+    <div>
+        目标子元素1拉伸之后的宽度 = 200 + （700 - 200 - 300 - 100） * 2 /（ 2 + 3 + 4） = 222.22222
+        <br>
+        目标子元素2拉伸之后的宽度 = 300 + （700 - 200 - 300 - 100） * 3 /（ 2 + 3 + 4） = 333.33333
+        <br>
+        目标子元素3拉伸之后的宽度 = 100 + （700 - 200 - 300 - 100） * 4 /（ 2 + 3 + 4） = 144.44444
+    </div>
+    <div>
+        ---------------------------------------------------------------------<br>
+        情形2 <br>
+        父元素盒子为content-box 子元素盒子为 border-box content-box <br>
+        父元素宽度：700px <br>
+        子元素3宽度：100px grow: 4 box-sizing: content-box;<br>
+        子元素4宽度：300px grow: 3 box-sizing: border-box; padding: 0 20px; border: 10px<br>
+        子元素5宽度：200px grow: 2 box-sizing: content-box; padding: 0 10px; border: 5px<br>
+    </div>
+    <div class="box">
+        <div class="box3">子元素3</div>
+        <div class="box4">子元素4</div>
+        <div class="box5">子元素5</div>
+    </div>
+    <div>
+        目标子元素3拉伸之后的宽度 = 100 + （700 - 100 - 300 - 200 - 10 * 2 - 5 * 2) * 4 /（ 2 + 3 + 4） = 131.111111
+        <br>
+        目标子元素4拉伸之后的宽度 = 300 + （700 - 100 - 300 - 200 - 10 * 2 - 5 * 2）* 3 /（ 2 + 3 + 4） = 323.3333333
+        <br>
+        目标子元素5拉伸之后的宽度 = 200 + （700 - 100 - 300 - 200 - 10 * 2 - 5 * 2）* 2 /（ 2 + 3 + 4） = 215.5555556
+    </div>
+    <div>
+        ---------------------------------------------------------------------<br>
+        情形3 <br>
+        父元素盒子为border-box 子元素盒子为 border-box content-box <br>
+        父元素宽度：800px padding: 0 20px; border: 10px<br>
+        子元素3宽度：100px grow: 4 box-sizing: content-box;<br>
+        子元素4宽度：300px grow: 3 box-sizing: border-box; padding: 0 20px; border: 10px<br>
+        子元素5宽度：200px grow: 2 box-sizing: content-box; padding: 0 10px; border: 5px<br>
+    </div>
+    <div class="box-other">
+        <div class="box3">子元素3</div>
+        <div class="box4">子元素4</div>
+        <div class="box5">子元素5</div>
+    </div>
+    <div>
+        目标子元素3拉伸之后的宽度 = 100 + （(800 - 20 - 20 - 10 - 10) - 100 - 300 - 200 - 10 * 2 - 5 * 2) * 4 /（ 2 + 3 + 4） = 148.888889
+        <br>
+        目标子元素4拉伸之后的宽度 = 300 + （(800 - 20 - 20 - 10 - 10)- 100 - 300 - 200 - 10 * 2 - 5 * 2）* 3 /（ 2 + 3 + 4） = 336.666667
+        <br>
+        目标子元素5拉伸之后的宽度 = 200 + （(800 - 20 - 20 - 10 - 10) - 100 - 300 - 200 - 10 * 2 - 5 * 2）* 2 /（ 2 + 3 + 4） = 224.444444
+    </div>
+</body>
+</html>

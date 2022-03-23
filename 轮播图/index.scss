@@ -1,0 +1,54 @@
+.swiper-box {
+    width: 444px;
+    background: grey;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  .swiper-content-box {
+      width: 405px;
+      height: 105px;
+      overflow: hidden;
+      position: relative;
+    .swiper-content {
+        transition-property: transform;
+        text-align: center;
+        transition-duration: 0ms;
+        transform: translate3d(-81px, 0px, 0px);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        .content-part {
+            margin: 0 4px;
+            font-size: 0;
+            width: 71px;
+            border-bottom: none;
+            background: rgba(60, 71, 84, 1);
+            border: 1px solid rgba(60, 71, 84, 1);
+            img {
+                width: 71px;
+                height: auto;
+            }
+            .people-info {
+                font-size: 12px;
+                line-height: 16px;
+                color: #fff;
+            }
+        }
+        .isnot-middle-bg {
+            background: rgba(60, 71, 84, 1);
+            border: 1px solid rgba(60, 71, 84, 1);
+        }
+        .is-middle-bg {
+            background: #4D96E5;
+            border: 1px solid #4D96E5;
+        }
+      }
+  }
+  .arrow {
+      width: 13px;
+      height: auto;
+  }
+}

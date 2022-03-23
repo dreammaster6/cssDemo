@@ -1,0 +1,79 @@
+.swiper-box {
+  width: 444px;
+  background: grey;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.swiper-box .swiper-content-box {
+  width: 405px;
+  height: 105px;
+  overflow: hidden;
+  position: relative;
+}
+
+.swiper-box .swiper-content-box .swiper-content {
+  -webkit-transition-property: -webkit-transform;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  text-align: center;
+  -webkit-transition-duration: 0ms;
+          transition-duration: 0ms;
+  -webkit-transform: translate3d(-81px, 0px, 0px);
+          transform: translate3d(-81px, 0px, 0px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.swiper-box .swiper-content-box .swiper-content .content-part {
+  margin: 0 4px;
+  font-size: 0;
+  width: 71px;
+  border-bottom: none;
+  background: #3c4754;
+  border: 1px solid #3c4754;
+}
+
+.swiper-box .swiper-content-box .swiper-content .content-part img {
+  width: 71px;
+  height: auto;
+}
+
+.swiper-box .swiper-content-box .swiper-content .content-part .people-info {
+  font-size: 12px;
+  line-height: 16px;
+  color: #fff;
+}
+
+.swiper-box .swiper-content-box .swiper-content .isnot-middle-bg {
+  background: #3c4754;
+  border: 1px solid #3c4754;
+}
+
+.swiper-box .swiper-content-box .swiper-content .is-middle-bg {
+  background: #4D96E5;
+  border: 1px solid #4D96E5;
+}
+
+.swiper-box .arrow {
+  width: 13px;
+  height: auto;
+}
+/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./new.css">
+    <style>
+        html, body {
+           margin: 10;
+           padding: 0; 
+        }
+    </style>
+</head>
+<body>
+    <div class="sl-color-svpannel">
+        <div class="sl-color-svpannel_white"></div>
+        <div class="sl-color-svpannel_black"></div>
+    </div>
+    <!-- 色相柱子 -->
+    <div class="sl-color-hue">
+        <div class="sl-color-hue_bar"></div>
+        <div class="sl-color-hue_thumb"></div>
+    </div>
+    <script>
+        let rgb = '(0,125,234)'
+        // 获取色板DOM元素
+        let getSVPannel = document.getElementsByClassName('sl-color-svpannel')[0]
+        getSVPannel.style.background = `rgb${rgb}`
+        // 获取色相柱子DOM元素
+        let hueDom = document.getElementsByClassName('sl-color-hue')[0] 
+        // 获取色相移动按钮DOM元素
+        let hueThumbDom = document.getElementsByClassName('sl-color-hue_thumb')[0]
+    </script>
+</body>
+</html>
