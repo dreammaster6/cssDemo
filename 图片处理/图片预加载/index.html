@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="" alt="">
+    <script>
+        let preLoad = new Promise((reslove, reject) => {
+            let img = new Image()
+            img.onload = function () {
+                reslove('图片加载成功')
+            }
+            img.onerror = function () {
+                reject('图片加载失败')
+            }
+            img.src = 'http://134.96.249.161:9990/dtdp-res/component/images/jifang/flash.svg'
+        })
+        console.log(preLoad)
+        function imgLoad() {
+           let img = document.querySelector('img')
+           img.src =  'http://134.96.249.161:9990/dtdp-res/component/images/jifang/flash.svg'
+        }
+        setTimeout(() => {
+            imgLoad()
+        }, 2000)
+    </script>
+</body>
+
+</html>

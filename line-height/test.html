@@ -1,0 +1,68 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-size: 20px;
+                line-height: 2;
+            }
+
+            .box {
+                background-color: pink;
+                height: 40px;
+                font-size: 20px;
+                line-height: 40px;
+            }
+
+            i {
+                /* line-height: 2em; */
+                display: inline-block;
+                position: relative;
+                width: 1em;
+                height: 1em;
+                font-size: 20px;
+                /* line-height: 1em; */
+                /* line-height: 200px; */
+                /* vertical-align: middle; */
+            }
+            svg {
+                position: absolute;
+                width: 1em;
+                height: 1em;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="box">
+            X
+            <i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" data-v-4d86de9c="">
+                    <path fill="currentColor"
+                        d="M685.248 104.704a64 64 0 0 1 0 90.496L368.448 512l316.8 316.8a64 64 0 0 1-90.496 90.496L232.704 557.248a64 64 0 0 1 0-90.496l362.048-362.048a64 64 0 0 1 90.496 0z">
+                    </path>
+                </svg>
+            </i>
+        </div>
+        <script>
+            const el = document.querySelector('img')
+        const box = document.querySelector('.box')
+        // console.dir(el.getBoundingClientRect())
+        box.addEventListener('click', function(e) {
+          console.log(e)
+        })
+        </script>
+    </body>
+
+    </html>

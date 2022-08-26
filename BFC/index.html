@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .bfx_box{
+           background: lightblue; 
+           display: inline-block;
+        }
+        img {
+            float: left;
+            width: 200px;
+        }
+        .content {
+            /* float: left; */
+            /* width: 200px; */
+            height: 200px;
+            /* 使用BFC消除文字环绕 */
+            overflow: hidden;
+        }
+        .test {
+            width: 20px;
+            height: 10px;
+            background: red;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="bfx_box">
+        <img src="./img/peng.gif" alt="">
+        <div class="content">
+            好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱
+            好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱
+            好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱
+            好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱
+            好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱好可爱
+        </div>
+    </div>
+</body>
+</html>

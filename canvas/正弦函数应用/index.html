@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="500" height="500" id="canvas"></canvas>
+    <script>
+        const canvasEl = document.getElementById('canvas')
+        const ctx = canvasEl.getContext('2d')
+        class sinDemo {
+            constructor(option) {
+                this.centerX = option.Width / 2
+                this.centerY = option.Height / 2
+                this.w = option.Width
+                this.h = option.Height
+                this.ctx = option.ctx
+                this.fillStyle = option.fillStyle
+                this.strokeStyle = option.strokeStyle
+                this.radius = option.radius
+                this.scaleX = option.scaleX
+                this.scaleY = option.scaleY
+                return this
+            }
+            drawBall() {
+                ctx.save()
+                ctx.translate(this.centerX, this.centerY)
+                ctx.scale(this.scaleX, this.scaleY)
+                ctx.beginPath()
+                ctx.strokeStyle = this.strokeStyle
+                ctx.fillStyle = this.fillStyle
+                ctx.arc(0, 0, this.radius, 0, Math.PI * 2)
+                ctx.stroke()
+                ctx.fill()
+                ctx.restore()
+            }
+            render() {
+                this.drawBall(this.ctx)
+            }
+            animate() {
+                const rate = 1
+                let beginRad = 1
+                this.centerX += Math.sin(beginRad)
+                this.render()
+                beginRad += 0.05
+            }
+        }
+        let optios = {
+            Width: canvasEl.width,
+            Height: canvasEl.height,
+            ctx: ctx,
+            fillStyle: 'blue',
+            strokeStyle: 'blue',
+            radius: 25
+        }
+        const demo = new sinDemo(optios);
+        let rad = 0; // 弧度
+        const SWINGS = 160;
+        (function move() {
+            window.requestAnimationFrame(move)
+            ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
+            // 左右滚动
+            // demo.centerX = canvasEl.width / 2 + Math.sin(rad) * SWINGS
+            // 上下滚动
+            // demo.centerX +=  1
+            // demo.centerY = canvasEl.height / 2 + Math.sin(rad) * SWINGS
+            // 缩放
+            // demo.radius = optios.radius + Math.sin(rad) * 10
+            demo.scaleX = demo.scaleY = 1 + Math.sin(rad) * 0.5
+            rad += 0.05
+            rad %= Math.PI * 2
+            demo.render()
+        })();
+    </script>
+</body>
+
+</html>

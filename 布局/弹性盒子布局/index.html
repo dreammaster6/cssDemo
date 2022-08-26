@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex box layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .title {
+            height: 100px;
+            line-height: 100px;
+            background: purple;
+            text-align: center;
+        }
+
+        .flex-box {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        ul>p {
+            border: 2px solid pink;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">Sample flexBox example</div>
+    <ul class="flex-box">
+        <p>《江雪》</p>
+        <p>唐·柳宗元</p>
+        <p>千山鸟飞绝，万径人踪灭。<br>
+            孤舟蓑笠翁，独钓寒江雪。</p>
+    </ul>
+</body>
+
+</html>

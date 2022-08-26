@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            padding: 20px;
+            margin: 0;
+        }
+
+        canvas {
+            border: 1px solid pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="400" height="300"></canvas>
+    <script>
+        class Arrow {
+            constructor(options) {
+                // 绘制图形的中心点
+                this.x = options.x
+                this.y = options.y
+                // 箭头的宽高
+                this.w = options.w
+                this.h = options.h
+                // 旋转弧度
+                this.rotateion = options.rotateion
+            }
+            drawArrow(ctx) {
+                let { w, h } = this;
+                ctx.beginPath();
+                ctx.moveTo(-w / 2, -h / 2);
+                ctx.lineTo(w / 10, -h / 2);
+                ctx.lineTo(w / 10, -h);
+                ctx.lineTo(w / 2, 0);
+                ctx.lineTo(w / 10, h);
+                ctx.lineTo(w / 10, h / 2);
+                ctx.lineTo(-w / 2, h / 2);
+                ctx.closePath();
+                return this;
+            }
+            drawLine(ctx, target) {
+                ctx.moveTo(0, 0)
+                ctx.lineTo(target.x, target.y)
+            }
+            render(ctx, target) {
+              ctx.save()
+              ctx.translate(this.x, this.y)
+              ctx.rotate(this.rotateion)
+              this.drawArrow(ctx)
+              ctx.stroke()
+              ctx.restore()
+              ctx.save()
+              ctx.translate(this.x, this.y)
+              this.drawLine(ctx, target)
+              ctx.stroke()
+              ctx.restore()
+            }
+        }
+        const canvasEl = document.getElementById('canvas')
+        const ctx = canvasEl.getContext('2d')
+        let options = {
+           w: 30,
+           h: 10,
+           x: canvasEl.width / 2,
+           y: canvasEl.height / 2
+        }
+        const arrowEl = new Arrow(options)
+        let targetXY = {
+            x: 0,
+            y: 0
+        }
+        // canvas元素添加鼠标移动事件
+        canvasEl.addEventListener('mousemove', function (e) {
+            let targetPoit = changeCoordinate(e)
+            let dx = targetPoit.x - arrowEl.x
+            let dy = targetPoit.y - arrowEl.y
+            targetXY = {
+               x: dx,
+               y: dy 
+            }
+        })
+        // 鼠标事件获得的坐标是屏幕的坐标，而非canvas的坐标。所以需要用转换函数，转换一下。
+        function changeCoordinate(e) {
+            let { pageX, pageY, target } = e
+            let { top, left } = target.getBoundingClientRect()
+            return {
+                x: pageX - left - window.pageXOffset,
+                y: pageY - top - window.pageYOffset
+            }
+        }
+        function toRad(angel) {
+            return angel * Math.PI / 180
+        }
+        function toAngel(rad) {
+            return rad / Math.PI * 180
+        }
+        // 动画
+        let speed = 2
+            ;
+        (function move() {
+            window.requestAnimationFrame(move)
+            ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
+            let rad = Math.atan2(targetXY.y, targetXY.x)
+            // 跟随鼠标的旋转弧度
+            arrowEl.rotateion = rad
+            arrowEl.x += speed * Math.cos(arrowEl.rotateion)
+            // console.log(speed * Math.cos(arrowEl.roatetion))
+            arrowEl.y += speed * Math.sin(arrowEl.rotateion)
+            arrowEl.render(ctx, targetXY)
+        })()
+    </script>
+</body>
+
+</html>

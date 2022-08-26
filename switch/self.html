@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #c2e9f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        input {
+            display: none;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            width: 60px;
+            height: 30px;
+            border-radius: 20px;
+            background: #1a66ff;
+            cursor: pointer;
+            position: relative;
+        }
+
+        label::before {
+            position: absolute;
+            top: 50%;
+            left: 2px;
+            transform:translateY(-50%);
+            content: "";
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: #fff;
+            animation: switch-resvere 0.35s forwards;
+        }
+
+        input:checked+label {
+            background-color: grey;
+        }
+
+        input:checked+label::before {
+            border-color: #e8e8ea;
+            background-color: #fff;
+            animation: switch 0.35s forwards;
+        }
+
+        @keyframes switch {
+            0% {
+                left: 2px;
+            }
+
+            60% {
+                left: 2px;
+                width: 50px;
+            }
+
+            100% {
+                left: calc(100% - 25px - 2px);
+            }
+        }
+
+        @keyframes switch-resvere {
+            0% {
+                left: calc(100% - 25px - 2px);
+            }
+
+            60% {
+                left: 2px;
+                width: 50px;
+            }
+
+            100% {
+                left: 2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="checkbox" id="switchId">
+        <label for="switchId"></label>
+    </div>
+    <script>
+        document.querySelector('input').addEventListener('change', () => {
+            console.log(1)
+        })
+    </script>
+</body>
+
+</html>

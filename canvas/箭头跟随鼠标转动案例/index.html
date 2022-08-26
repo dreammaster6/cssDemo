@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            padding: 20px;
+            margin: 0;
+        }
+        canvas {
+            border: 1px solid pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="400" height="300"></canvas>
+    <script>
+        class Arrow {
+            constructor(canvas) {
+                this.width = canvas.width
+                this.height = canvas.height
+                this.centerX = this.width / 2
+                this.centerY = this.height / 2
+                this.ctx = canvas.getContext('2d')
+                this.w = 60
+                this.h = 30
+            }
+            drawArray(ctx) {
+                let { w, h } = this
+                ctx.beginPath()
+                ctx.moveTo(-w / 2, -h / 2)
+                ctx.lineTo(w / 10, -h / 2)
+                ctx.lineTo(w / 10, -h)
+                ctx.lineTo(w / 2, 0)
+                ctx.lineTo(w / 10, h)
+                ctx.lineTo(w / 10, h / 2)
+                ctx.lineTo(-w / 2, h / 2)
+                ctx.closePath()
+            }
+            render(rad) {
+                const ctx = this.ctx
+                ctx.clearRect(0, 0, this.width, this.height)
+                ctx.save()
+                ctx.translate(this.centerX, this.centerY)
+                ctx.strokeStyle = 'rgba(0, 149, 255, .3)'
+                ctx.fillStyle = '#ffffff'
+                // 先旋转，再绘制
+                ctx.rotate(rad)
+                this.drawArray(ctx)
+                ctx.stroke()
+                ctx.restore()
+            }
+        }
+        const canvasEl = document.getElementById('canvas')
+        const arrowEl = new Arrow(canvasEl)
+        arrowEl.render()
+        // canvas元素添加鼠标移动事件
+        canvasEl.addEventListener('mousemove', function (e) {
+            let targetPoit = changeCoordinate(e)
+            let dx = targetPoit.x - arrowEl.width / 2
+            let dy = targetPoit.y - arrowEl.height / 2
+            let rad = Math.atan2(dy, dx)
+            arrowEl.render(rad)
+        })
+        // 鼠标事件获得的坐标是屏幕的坐标，而非canvas的坐标。所以需要用转换函数，转换一下。
+        function changeCoordinate(e) {
+            let { pageX, pageY, target } = e
+            let { top, left } = target.getBoundingClientRect()
+            return {
+                x: pageX - left,
+                y: pageY - top
+            }
+        }
+        function toRad(angel) {
+          return angel * Math.PI / 180  
+        }
+        function toAngel(rad) {
+          return rad / Math.PI * 180  
+        }
+    </script>
+</body>
+
+</html>

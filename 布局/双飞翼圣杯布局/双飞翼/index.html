@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .head {
+            background: pink;
+            height: 50px;
+            text-align: center;
+        }
+
+        .footer {
+            background: yellowgreen;
+            height: 50px;
+            text-align: center;
+            clear: both;
+        }
+
+        .left {
+            float: left;
+            height: 50px;
+            width: 100px;
+            background: grey;
+            /* margin-left: -100; */
+            margin-left: -100%;
+        }
+
+        .right {
+            float: left;
+            height: 50px;
+            width: 100px;
+            background: grey;
+            margin-left: -100px;
+        }
+
+        .center {
+            height: 100px;
+            background: skyblue;
+            text-align: center;
+            margin: 0 100px;
+        }
+
+        .box {
+            float: left;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <h1>head</h1>
+    </div>
+    <div class="box">
+        <div class="center">
+            center
+        </div>
+    </div>
+    <div class="left">
+        left
+    </div>
+    <div class="right">
+        right
+    </div>
+    <div class="footer">
+        <h1>footer</h1>
+    </div>
+</body>
+
+</html>

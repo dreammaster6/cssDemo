@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+          --el-switch-on-color: #409eff;  
+        }
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+        .background {
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           background-color: #c2e9f6; 
+           z-index: -1;
+        }
+        input {
+            display: none;
+        }
+        label {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            border: 5px solid #72cce3;
+            border-radius: 100px;
+            border-color: #96dcee;
+        }
+        label::before {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 82px;
+            height: 82px;
+            border-radius: 50%;
+            border: 5px solid #f5eb71;
+            background-color: #fffaa8;
+            transition: all .35s ease-in;
+            animation: switch-reserve .35s forwards;
+        }
+        input:checked ~ .background {
+            background-color: #808fc7;
+        }
+        label span {
+          position: relative;
+          top: 45px;
+          left: 135px;
+          display: block;
+          width: 10px;
+          height: 5px;
+          border-radius: 5px;
+          background-color: #fff;  
+          transition: all 0.15s ease-in;
+        }
+        label span::before, label span::after {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 5px;
+            border-radius: 5px;
+            background-color: #fff; 
+            transition: all 0.15s ease-in;
+        }
+        label span::before {
+            top: -5px;
+            left: -20px;
+        }
+        label span::after {
+            top: 5px;
+            left: -10px;
+        }
+        input:checked + label {
+            border-color: #5d6baa;
+            background-color: #6b7abb;
+        }
+        input:checked + label::before {
+           border-color: #e8e8ea;
+           background-color: #fff; 
+           animation: switch 0.35s forwards;
+        }
+        input:checked + label span::before, label span::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #fff;
+        }
+
+        @keyframes switch {
+            0% {
+                left: 4px;
+            }
+            60% {
+                left: 4px;
+                width: 112px;
+            }
+            100% {
+                left: 104px;
+            }
+        }
+        @keyframes switch-reserve {
+           0% {
+            left: 104px;
+           }   
+           60% {
+            left: 72px;
+            width: 112px;
+           }
+           100% {
+             left: 4px;
+           }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="el-switch">
+        <input type="checkbox" class="el-switch__input">
+        <span class="el-switch__core"></span>
+    </div> -->
+    <input type="checkbox" name="" id="checkbox">
+    <label for="checkbox">
+        <span></span>
+    </label>
+    <input type="checkbox" name="" id="checkbox1">
+    <label for="checkbox1">
+        <span></span>
+    </label>
+    <div class="background"></div>
+    <script>
+        document.querySelector('input').addEventListener('change', (event) => {
+            console.dir(event.target.checked)
+        })
+    </script>
+</body>
+
+</html>

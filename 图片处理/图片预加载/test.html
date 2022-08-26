@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>图片预加载</title>
+    <style>
+      .img-container {
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      img {
+        width: 100%;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="img-container">
+      <img src="http://134.96.249.161:9990/dtdp-res/component/images/6929196372293844992.png" alt="图片" id="img" />
+    </div>
+
+    <script>
+      const imgs = [
+        "http://134.96.249.161:9990/dtdp-res/component/images/6929196673943994368.png",
+        "http://134.96.249.161:9990/dtdp-res/component/images/6929199405438337024.png",
+        "http://134.96.249.161:9990/dtdp-res/component/images/6929199538620071936.png",
+        // "http://134.96.249.161:9990/dtdp-res/component/images/jifang/flash.svg",
+      ];
+      let i = 0;
+      const $img = document.getElementById("img");
+
+      // 页面一开始调用preload加载数组的第一个元素
+      preload(imgs[i])
+        .then((data) => {})
+        .catch(() => {});
+
+      // 点击切换
+      $img.addEventListener(
+        "click",
+        () => {
+          // 当索引小于数组length
+          if (i < imgs.length) {
+            // 将数组元素的src赋值给页面元素
+            $img.src = imgs[i];
+            // i+1 下次点击变为数组的第二个元素 依次递增
+            i++;
+            // 当索引小于数组length
+            if (i < imgs.length) {
+              // 预加载下一个图片
+              preload(imgs[i]);
+            }
+          } else {
+            // 当 索引和 数组length相同 则数组内没元素了
+            console.log("已经是最后一张了！");
+          }
+        },
+        false
+      );
+
+      // 预加载
+      function preload(src) {
+        // Promise进行包装
+        return new Promise((resolve, reject) => {
+          // 创建一个新的图片标签
+          const image = new Image();
+
+          // 图片加载完成调用成功状态
+          image.addEventListener("load", () => resolve(image), false);
+          // 图片加载失败调用失败状态
+          image.addEventListener("error", () => reject(), false);
+          // 将传进来的src赋值给新的图片
+          image.src = src;
+        });
+      }
+    </script>
+  </body>
+</html>
+

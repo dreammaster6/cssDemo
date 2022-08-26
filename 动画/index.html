@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 500px;
+            background: pink;
+        }
+
+        .part {
+            transition: all .5s;
+            margin-bottom: 5px;
+            height: 80px;
+            background: yellow;
+            border: 1px solid red;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div class="box">
+        <div class="part">1</div>
+        <div class="part">2</div>
+    </div>
+    <button onclick="clickEvent()">点击</button>
+    <script>
+        let divEl = document.getElementsByClassName('part')
+        console.log(divEl)
+        function clickEvent() {
+            console.log('点击')
+            for (let i = 0; i < divEl.length; i++) {
+                if (divEl[i].innerHTML === '1') {
+                    console.log(divEl[i])
+                    divEl[i].style.display = 'none'
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

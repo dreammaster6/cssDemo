@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .box {
+            display: inline-block;
+            position: relative;
+            top: 50vh;
+            left: 50%;
+            width: 200px;
+            height: 20px;
+            border: 1px solid pink;
+            cursor: pointer;
+        }
+        .bar {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: yellow;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 5px 5px red;
+        }
+        .progress {
+           width: 0;
+           height: 20px;
+           background: green; 
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="box">
+            <div class="bar"></div>
+            <div class="progress"></div>
+        </div>
+    </div>
+    <script>
+        const boxEl = document.querySelector('.box')
+        const barEl = document.querySelector('.bar')
+        const progressEl = document.querySelector('.progress')
+        function moveFn(e) {
+            console.log(e)
+            // console.log(e.clientX - this.getBoundingClientRect().left)
+            // console.log(this.getBoundingClientRect().width)
+            // barEl.style.left = (e.clientX - this.getBoundingClientRect().left) / (this.getBoundingClientRect().width - 1) * 100 + '%' 
+            // e.stopImmediatePropagation() 
+        }
+        // 为box添加点击事件
+        boxEl.addEventListener('click', function(e) {
+            console.log(e.clientX)
+            console.log(this.getBoundingClientRect())
+            // 根据点击的坐标点，将barEl的坐标设为这个值
+            console.log(e.clientX - this.getBoundingClientRect().left)
+            console.log(this.getBoundingClientRect().width)
+            barEl.style.left = (e.clientX - this.getBoundingClientRect().left) / (this.getBoundingClientRect().width - 1) * 100 + '%'
+        })
+        barEl.addEventListener('click', function(e) {
+            e.stopImmediatePropagation()
+        })
+        barEl.addEventListener('mousedown', function() {
+          console.log('down')
+          this.style.pointerEvents = 'none'
+          window.addEventListener('mousemove', moveFn)  
+        })
+        window.addEventListener('mouseup', function() {
+          console.log('up')
+          barEl.style.pointerEvents = 'auto'
+          window.removeEventListener('mousemove', moveFn)
+        })
+    </script>
+</body>
+</html>

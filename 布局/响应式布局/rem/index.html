@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box1 {
+            display: inline-block;
+            width: 200px;
+            height: 100px;
+            background: red;
+        }
+
+        .box2 {
+            display: inline-block;
+            width: 20rem;
+            height: 20rem;
+            background: pink;
+        }
+        .box3 {
+            display: inline-block;
+            width: 20vw;
+            height: 20vw;
+            background: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+    <script>
+        (function () {
+            let htmlEl = document.querySelector('html')
+            let box1 = document.querySelector('div')
+            console.log(htmlEl)
+            window.onresize = () => {
+                console.log('变化')
+                htmlEl.style.fontSize = window.innerWidth / 1920 * 16 + 'px'
+            }
+            window.onresize = () => {
+                console.log('变化1')
+            }
+            window.addEventListener('resize', () => {
+                console.log('变化')
+                htmlEl.style.fontSize = window.innerWidth / 1920 * 16 + 'px'
+            })
+            window.addEventListener('resize', () => {
+                console.log('变化1')
+                // htmlEl.style.fontSize = window.innerWidth / 1920 * 16 + 'px'
+            })
+            htmlEl.addEventListener('click', function() {
+
+            })
+            box1.addEventListener('click', function() {
+                console.log(1)
+            })
+        })()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 0;
+        }
+
+        .head {
+            background: pink;
+            height: 50px;
+            text-align: center;
+        }
+
+        .footer {
+            background: yellowgreen;
+            height: 50px;
+            text-align: center;
+        }
+
+        .left {
+            display: inline-block;
+            height: 50px;
+            width: 100px;
+            background: grey;
+            opacity: 0.1;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+
+        .right {
+            display: inline-block;
+            height: 50px;
+            width: 100px;
+            background: grey;
+            opacity: 0.1;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+
+        .center {
+            display: inline-block;
+            height: 50px;
+            width: calc(100vw - 200px);
+            background: skyblue;
+            font-size: 12px;
+            /* line-height: 50px; */
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <h1>head</h1>
+    </div>
+    <div class="left">
+        left
+    </div>
+    <div class="center">
+        两边内容固定为100px，中间使用 calc(100vw - 200px)来固定宽度。
+        如果没有滚动条，可以实现中间内容自适应。但是如果有滚动条，则不能实现。
+        并且 inline-block的元素对齐会存在有无文本内容出现不同对齐形式，需要额外写样式代码。
+    </div>
+    <div class="right">
+        right
+    </div>
+    <div class="footer">
+        <h1>footer</h1>
+    </div>
+</body>
+
+</html>

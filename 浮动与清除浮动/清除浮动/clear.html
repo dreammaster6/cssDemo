@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+          background-color: aqua;  
+          line-height: 50px;
+        }
+        .left {
+          float: left;  
+        }
+        .right {
+          float: right;
+        }
+        div[floatel] {
+          width: 50px;
+          height: 600px;
+          background: lightcoral;  
+          border: 1px solid grey;
+          margin-left: 5px;
+        }
+        .clear {
+          display: block;
+          clear: both;  
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="left" floatel>1</div>
+        <div class="left" floatel>2</div>
+        <div class="right" floatel>3</div>
+        <div>
+            float属性：指定一个元素应沿其容器的左侧或右侧放置。允许文本和内联元素环绕它。
+            该元素从网页的正常文档流中移出。
+            <br>
+            浮动的元素在文档中怎么定位呢？<br>
+            当一个元素浮动之后，它会被移出正常的文档流，然后向左或者向右平移，一直平移直
+            到碰到了所处的容器的边框，或者碰到另外一个浮动的元素。
+            浮动元素的不好影响？<br>
+            造成父元素高度塌陷，会对非文本和内联元素进行遮挡。
+            使用clear清除浮动！！！<br>
+            clear属性指定一个元素是否必须移动 (清除浮动后) 到在它之前的浮动元素下面。
+            要对块级元素(display: block)设置才能起作用。
+            clear 属性适用于浮动和非浮动元素。
+        </div>
+        <p class="clear"></p>
+    </div>
+</body>
+</html>

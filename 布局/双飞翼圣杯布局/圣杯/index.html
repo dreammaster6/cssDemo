@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        /* body{min-width: 700px;}  */
+        /* 圣杯布局因为左右两侧固定宽度，所以需要设置一个页面的最小宽度值 */
+        .head {
+            background: pink;
+            height: 50px;
+            text-align: center;
+        }
+
+        .footer {
+            background: yellowgreen;
+            height: 50px;
+            text-align: center;
+        }
+
+        .left {
+            float: left;
+            height: 50px;
+            width: 100px;
+            background: grey;
+            margin-left: -100%;
+            position: relative;
+            left: -100px;
+        }
+
+        .right {
+            float: left;
+            height: 50px;
+            width: 100px;
+            background: grey;
+            margin-left: -100px;
+            position: relative;
+            right: -100px;
+        }
+
+        .center {
+            width: 100%;
+            float: left;
+            height: 50px;
+            background: skyblue;
+
+        }
+        .container {
+            box-sizing: border-box;
+          padding: 0 100px;  
+        }
+        .container::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <h1>head</h1>
+    </div>
+    <div class="container">
+        <div class="center">
+            中间内容优先渲染，并且滚动条也不会影响布局。
+        </div>
+        <div class="left">
+            left
+        </div>
+        <div class="right">
+            right
+        </div>
+    </div>
+    <div class="footer">
+        <h1>footer</h1>
+    </div>
+</body>
+
+</html>

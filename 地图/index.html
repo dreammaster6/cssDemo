@@ -1,13 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <title>D3 Map</title>
+    <style>
+        #world {
+            width: 100%;
+            height: 100%;
+            background: #888888;
+            overflow: hidden;
+        }
+
+        #svg {
+            width: 1024px;
+            height: 600px;
+            margin: 0 auto;
+            display: block;
+            background: white;
+        }
+
+        #tooltip {
+            opacity: 0;
+            position: absolute;
+            padding: 10px;
+            background: #333333;
+            border: 2px solid #e8e8e8;
+            color: #33cc99;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
+
 <body>
-    <div id="zjMap"></div>
+    <div id="world">
+        <svg id="svg" #svg></svg>
+        <div id="tooltip"></div>
+    </div>
+    <script>
+        const width = 1024;
+        const height = 600;
+        const projection = d3.geoMercator()
+            .scale(4000)
+            .center([120, 29])
+            .translate([width / 2, height / 2]);
+        const path = d3.geoPath(projection);
+        const colors = d3.scaleOrdinal(d3.schemeBrBG[11]);
+        const svg = d3.select('#svg')
+            .attr('width', width)
+            .attr('height', height);
+        d3.json("https://geo.datav.aliyun.com/areas_v2/bound/330000_full.json").then(data => {
+            svg.selectAll('path')
+                .data(data.features)
+                .enter()
+                .append('path')
+                .attr('d', function (d) {
+                    return path(d)
+                })
+                .attr('fill', function (d, i) {
+                    return colors(i);
+                })
+                .attr('stroke', 'rgba(255, 255, 255, 1')
+                .attr('stroke-width', 1)
+                .attr('class', function (d, i) {
+                    return i
+                })
+            // .append('text')
+            // .text(function(d){
+            //     return d.properties.name
+            // });
+            svg.selectAll("text")
+                .data(data.features)
+                .enter()
+                .append("text")
+                .attr("fill", "black")
+                .attr("transform", function (d) {
+                    var centroid = path.centroid(d);
+                    return "translate(" + centroid[0] + "," + centroid[1] + ")"
+                })
+                .attr("text-anchor", "middle")
+                .attr("dy", ".35em")
+                .text(function (d) {
+                    return d.properties.name;
+                });
+            svg.selectAll('path')
+                .on("mousemove", function(d, i){
+                    d3.select(this)
+                    .attr("fill", "yellow")
+                })
+                .on("mouseover", function(d, i){
+                    d3.select(this)
+                    .attr("fill", "yellow")
+                })
+                .on("mouseout", function (d, i) {
+                    d3.select(this)
+                        .transition()
+                        .duration(500)
+                        .attr("fill", colors(i));
+                })
+                .on("click", function (d, i) {
+                    console.log(arguments)
+                    d3.select(this)
+                        .attr("fill", "yellow")
+                })
+            svg.selectAll('text')
+                // .on("mouseover", function(d, i){
+                //     d3.selectAll('path')
+                //     .filter(function(d, index) {
+                //         return index === i
+                //     })
+                //     .attr("fill", "yellow")
+                // })
+                // .on("mousemove", function(d, i){
+                //     d3.selectAll('path')
+                //     .filter(function(d, index) {
+                //         return index === i
+                //     })
+                //     .attr("fill", "yellow")
+                // })
+                .on("click", function (d, i) {
+                    d3.selectAll('path')
+                        .filter(function (d, index) { return index === i })
+                        .attr("fill", "yellow")
+                })
+                .on("mouseout", function (d, i) {
+                    // d3.selectAll('path')
+                    // .filter(function(d, index) {return index === i})
+                    // .transition()
+                    // .duration(500)
+                    // .attr("fill", colors(i));
+                })
+        })
+        const places = [
+            {
+                'name': '北京',
+                'log': '121.4',
+                'lat': '31.2'
+            },
+            {
+                'name': '上海',
+                'log': '121.4',
+                'lat': '31.2'
+            },
+            {
+                'name': '深圳',
+                'log': '113',
+                'lat': '22'
+            }
+        ];
+        // const locations = svg.selectAll('.locations')
+        //     .data(places)
+        //     .enter()
+        //     .append('g')
+        //     .attr('class', 'locations')
+        //     .attr('transform', (d) => {
+        //         const coor = projection([d.log, d.lat]);
+        //         return 'translate(' + coor[0] + ',' + coor[1] + ')';
+        //     });
+        //     locations.append('circle')
+        //     .attr('r', 4)
+        //     .attr('fill', '#e91e63')
+        //     .attr('class', 'locations');
+        // const tooltip = d3.select('#tooltip');
+        // locations.on('mouseover', function (d) {
+        //     tooltip.html('当前城市：' + d.name)
+        //         .style('left', d3.event.pageX + 20 + 'px')
+        //         .style('top', d3.event.pageY + 20 + 'px')
+        //         .style('opacity', 1);
+        //     d3.select(this).select('circle').transition()
+        //         .duration(150)
+        //         .attr('r', 8);
+        // }).on('mouseout', function () {
+        //     tooltip.style('opacity', 0);
+        //     d3.select(this)
+        //         .select('circle')
+        //         .transition()
+        //         .duration(150)
+        //         .attr('r', 4);
+        // });
+    </script>
 </body>
+
 </html>

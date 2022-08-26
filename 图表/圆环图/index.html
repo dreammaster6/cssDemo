@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html body {
+            padding: 0;
+            margin: 0;
+        }
+
+        #canvas {
+            /* background: pink; */
+        }
+        #box {
+            zoom: .5;
+        }
+    </style>
+    <script src="./circle.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <canvas id="canvas" width="128" height="128" ></canvas>
+    </div>
+    <div id="box">
+        <canvas id="canvas1" width="128" height="128" ></canvas>
+    </div>
+    <script>
+        let preLoad = new Promise((reslove, reject) => {
+            let img = new Image()
+            img.onload = function () {
+                reslove('图片加载成功')
+            }
+            img.onerror = function () {
+                reject('图片加载失败')
+            }
+            img.src = 'http://134.96.249.161:9990/dtdp-res/component/images/jifang/flash.svg'
+        })
+        let elDom = document.querySelector('canvas')
+        let elDom2 = document.getElementById('canvas1')
+        console.log(elDom)
+        function drawTest(el, value) {
+            const canvasElOne = el
+            const ctx = canvasElOne.getContext('2d')
+            ctx.clearRect(0, 0, canvasElOne.width, canvasElOne.height)
+            ctx.restore()
+            let potionsOne = {
+                x: canvasElOne.width / 4,
+                y: canvasElOne.height / 4,
+                W: canvasElOne.width,
+                H: canvasElOne.height,
+                radius: 27,
+                lineWidth: 1,
+                fillStyle: '#1B4360',
+                strokeStyle: 'rgba(98, 142, 164, 1)'
+            }
+            let chartOne = new CircleChartTwo(potionsOne)
+            chartOne.render(ctx, value)
+        }
+        drawTest(elDom, 66.33)
+    </script>
+</body>
+
+</html>
